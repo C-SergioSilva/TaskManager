@@ -13,6 +13,8 @@ namespace TaskManagerAPI.Controllers
     {
         // todas as api usará aquivo de logs, que são arquivos que anota tudo que acontece durante a execução do projeto no ambiente de produção.
         private readonly ILogger<LoginController> _logger;
+        private readonly string loginTest = "teste@admin";
+        private readonly string passawordTest = "gms1206005";
         
         //criação do construtor
         public LoginController(ILogger<LoginController> logger)
@@ -26,11 +28,13 @@ namespace TaskManagerAPI.Controllers
             try
             {
                 // Validando Erro de responsabilidade do usuário 
-                if (request == null || request.Login == null || request.Password == null)
+                if (request == null || string.IsNullOrEmpty(request.Login) || string.IsNullOrWhiteSpace(request.Login) 
+                    || string.IsNullOrEmpty(request.Password) || string.IsNullOrWhiteSpace(request.Password)
+                    || request.Login != loginTest || request.Password != passawordTest)
                 {
-                    return BadRequest(new ErrorsDto()
+                    return BadRequest(new ErrorsDto() 
                     {
-                        Status = StatusCodes.Status400BadRequest,
+                        Status = StatusCodes.Status400BadRequest,   
                         Error = "Parametros de Entrada Inválido"
                     });
 
