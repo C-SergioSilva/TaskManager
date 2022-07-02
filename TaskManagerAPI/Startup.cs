@@ -1,0 +1,72 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace TaskManagerAPI
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+           // Habilitando o recurso de api através de Controller  
+            services.AddControllers();
+            // adiciona o gerador do swagger através dos controller cria a documentação do swagger tendo a versão , titulo...
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskManagerAPI", Version = "v1" });
+            });
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // configuração do servidor
+        // através do IWebHostEnvironment ele verifica qual o ambiente que está rodando a aplicação 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            // verifica se o ambiente está em desenvolvimento
+            if (env.IsDevelopment())
+            {
+                // pagina de error
+                app.UseDeveloperExceptionPage();
+               // adicionado o swagger 
+                app.UseSwagger();
+               //Interface gráfica UseSwaggerUI adiciona a url obtem o arquivo gerado na configure services AddSwagger e transforma na interface gráfica
+               //para que seja visualizado todos os métodos.
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TaskManagerAPI v1"));
+            }
+
+            // Hablitando os redirecionamento do https e http 
+            app.UseHttpsRedirection();
+
+            // Utilizando roteamento 
+            app.UseRouting();
+            
+            // utilização de autorizações
+            app.UseAuthorization();
+
+            // utilizando os enpoints mapeando todos os controllers
+            app.UseEndpoints(endpoints =>
+            {
+                // escanea todos que tenham api controller como identificação
+                endpoints.MapControllers();
+            });
+        }
+    }
+}
