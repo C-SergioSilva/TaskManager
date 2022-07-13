@@ -14,7 +14,7 @@ namespace TaskManagerAPI.Controllers
         // todas as api usará aquivo de logs, que são arquivos que anota tudo que acontece durante a execução do projeto no ambiente de produção.
         private readonly ILogger<LoginController> _logger;
         private readonly string loginTest = "teste@admin";
-        private readonly string passawordTest = "gms1206005";
+        private readonly string passawordTest = "gms120605";
         
         //criação do construtor
         public LoginController(ILogger<LoginController> logger)
@@ -28,9 +28,11 @@ namespace TaskManagerAPI.Controllers
             try
             {
                 // Validando Erro de responsabilidade do usuário 
-                if (request == null || string.IsNullOrEmpty(request.Login) || string.IsNullOrWhiteSpace(request.Login) 
+                if (request == null
+                    || string.IsNullOrEmpty(request.Login)    || string.IsNullOrWhiteSpace(request.Login)
                     || string.IsNullOrEmpty(request.Password) || string.IsNullOrWhiteSpace(request.Password)
                     || request.Login != loginTest || request.Password != passawordTest)
+                    
                 {
                     return BadRequest(new ErrorsDto() 
                     {
@@ -40,7 +42,13 @@ namespace TaskManagerAPI.Controllers
 
                 }
                 // Resposta positiva a requisição Realizada status 200
-                return Ok("Usuário autenticado com Sucesso");
+                return Ok(
+                    new SucessDto()
+                    {
+                        Name = "Usuário de teste",
+                        Email = loginTest,
+                        Token = ""
+                    });
 
             }
             // Erro de Responsabiliidade do Desenvolvimento
