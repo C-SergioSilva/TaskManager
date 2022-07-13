@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TaskManagerService\TaskManagerService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
