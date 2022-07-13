@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
 using TaskManagerAPI.Models;
 
 namespace TaskManagerAPI.Services
@@ -11,7 +7,9 @@ namespace TaskManagerAPI.Services
     {
         public static string CreateToken(User user) 
         {
-            var tokenHandle = new JwtSecurityTokenHandler(); 
+            var tokenHandle = new JwtSecurityTokenHandler();
+            return  "";
         }
     }
 }
+

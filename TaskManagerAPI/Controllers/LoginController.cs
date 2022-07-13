@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using TaskManagerAPI.Dtos;
+using TaskManagerService.Dtos;
 
 namespace TaskManagerAPI.Controllers
 {
@@ -28,10 +28,13 @@ namespace TaskManagerAPI.Controllers
             try
             {
                 // Validando Erro de responsabilidade do usuário 
-                if (request == null
-                    || string.IsNullOrEmpty(request.Login)    || string.IsNullOrWhiteSpace(request.Login)
-                    || string.IsNullOrEmpty(request.Password) || string.IsNullOrWhiteSpace(request.Password)
-                    || request.Login != loginTest || request.Password != passawordTest)
+                if (request == null 
+                    || string.IsNullOrEmpty(request.Login) 
+                    || string.IsNullOrWhiteSpace(request.Login)
+                    || string.IsNullOrEmpty(request.Password) 
+                    || string.IsNullOrWhiteSpace(request.Password)
+                    || request.Login != loginTest 
+                    || request.Password != passawordTest)
                     
                 {
                     return BadRequest(new ErrorsDto() 

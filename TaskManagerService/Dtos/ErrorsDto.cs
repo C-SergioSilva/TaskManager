@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TaskManagerAPI.Dtos
-{
+namespace TaskManagerService.Dtos
+{ 
     public class ErrorsDto
     {
         public int Status { get; set; }
