@@ -1,5 +1,5 @@
-﻿namespace TaskManagerService.Dtos
-{
+﻿namespace TaskManagerAPI.Dtos
+{ 
     public class LoginRequestDto
     {
         public string Login { get; set; } 

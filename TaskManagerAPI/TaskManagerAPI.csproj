@@ -10,12 +10,4 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TaskManagerService\TaskManagerService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

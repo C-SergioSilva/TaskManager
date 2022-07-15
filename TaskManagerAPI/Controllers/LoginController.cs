@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using TaskManagerService.Dtos;
+using TaskManagerAPI.Dtos;
+using TaskManagerAPI.Models;
+using TaskManagerAPI.Service;
 
 namespace TaskManagerAPI.Controllers
 {
@@ -44,13 +46,26 @@ namespace TaskManagerAPI.Controllers
                     });
 
                 }
+
+                // dados mocados user
+                var userTeste = new User()
+                {
+                    Id = 1,
+                    Nome = "user Teste",
+                    Email = loginTest,
+                    Senha = passawordTest
+                };
+
+                // criando efetivamente o token
+                var token = TokenServices.CreateToken(userTeste);
+
                 // Resposta positiva a requisição Realizada status 200
                 return Ok(
                     new SucessDto()
                     {
                         Name = "Usuário de teste",
                         Email = loginTest,
-                        Token = ""
+                        Token = token
                     });
 
             }

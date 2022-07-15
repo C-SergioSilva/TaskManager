@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskManagerDomain\TaskManagerDomain.csproj" />
+    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>
