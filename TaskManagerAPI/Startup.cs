@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace TaskManagerAPI
@@ -33,6 +36,30 @@ namespace TaskManagerAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskManagerAPI", Version = "v1" });
             });
+
+            // Configuração de autenticação do JWT
+
+            var encryptionKey = Encoding.ASCII.GetBytes(KeyJwt.KeySecurity);
+            services.AddAuthentication(authentication =>
+            {
+                authentication.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authentication.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(authentication =>
+            {
+                authentication.RequireHttpsMetadata = false;
+                authentication.SaveToken = true;
+                authentication.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(encryptionKey),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            // libera ou restringi o acesso de dominios a API
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +84,13 @@ namespace TaskManagerAPI
 
             // Utilizando roteamento 
             app.UseRouting();
+            app.UseCors(c =>
+                c.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
+            app.UseAuthentication();
             
             // utilização de autorizações
             app.UseAuthorization();
