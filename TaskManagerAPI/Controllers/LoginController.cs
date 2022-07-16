@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,7 +12,7 @@ namespace TaskManagerAPI.Controllers
     [ApiController]
     [Route("api/[Controller]")] // Quando se usa o prefixo api é para separa quais são as rotas da api e as rotas do site quando as paginas
     // são tambem produzida no lado do servidor tambem sem prefixo ex: /login estou acssando uma pagina quando uso ex: /api estou acessando um recurso .
-    public class LoginController : ControllerBase
+    public class LoginController : BaseController
     {
         // todas as api usará aquivo de logs, que são arquivos que anota tudo que acontece durante a execução do projeto no ambiente de produção.
         private readonly ILogger<LoginController> _logger;
@@ -25,6 +26,7 @@ namespace TaskManagerAPI.Controllers
         }
         
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult LoginIn([FromBody] LoginRequestDto request) // a idéia de um Model ou entity e ser uma cópia do que estar no banco de dados
         {
             try
