@@ -19,42 +19,51 @@ namespace TaskManagerAPI.Controllers
             _logger = logger;
         }
         
-        [HttpGet]
-        public IActionResult GetUser()
+        //[HttpGet]
+        //public IActionResult GetUser()
+        //{
+        //    try
+        //    {
+        //        var user = new User()
+        //        {
+        //            Id = 1,
+        //            Nome = "user Teste",
+        //            Email = "teste@admin",
+        //            Senha = "gms120605"
+        //        };
+        //        return Ok(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        _logger.LogError("Falha ao Obter Usuários", ex);
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new ErrorsDto() { 
+        //            Status = StatusCodes.Status500InternalServerError,
+        //            Error = "Ocorreu Error ao Obter Usuário Tente novamente !"
+                
+        //        });
+        //    }
+        //}
+
+
+        [HttpPost]
+        public IActionResult AddUser([FromBody] User user)
         {
             try
             {
-                var user = new User()
-                {
-                    Id = 1,
-                    Nome = "user Teste",
-                    Email = "teste@admin",
-                    Senha = "gms120605"
-                };
                 return Ok(user);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError("Falha ao Obter Usuários", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorsDto() { 
+                _logger.LogError("Falha ao Adicionar Usuário", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorsDto()
+                {
                     Status = StatusCodes.Status500InternalServerError,
-                    Error = "Ocorreu Error ao Obter Usuário Tente novamente !"
-                
+                    Error = "Ocorreu Error ao Adicionar Usuário Tente novamente !"
+
                 });
             }
         }
-
-        private IActionResult StatusCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public IActionResult AddUser()
-        //{
-            
-        //}
     }
 }
