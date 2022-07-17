@@ -1,1 +1,2 @@
-# Gerencia Agenda de Atividades de uma pessoa.
+#Agenda de Atividades .
+gerencia atividades diárias de uma pessoa tais como, reuniões, compromissos Socias etc.
