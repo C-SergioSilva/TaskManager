@@ -1,1 +1,1 @@
-# Gerencia Agenda de Atividades de uma pessoa, tais como reunião, compromissos sociais etc
+# Gerencia Agenda de Atividades de uma pessoa.
