@@ -18,35 +18,42 @@ namespace TaskManagerAPI.Controllers
         {
             _logger = logger;
         }
-        
-        //[HttpGet]
-        //public IActionResult GetUser()
-        //{
-        //    try
-        //    {
-        //        var user = new User()
-        //        {
-        //            Id = 1,
-        //            Nome = "user Teste",
-        //            Email = "teste@admin",
-        //            Senha = "gms120605"
-        //        };
-        //        return Ok(user);
-        //    }
-        //    catch (Exception ex)
-        //    {
 
-        //        _logger.LogError("Falha ao Obter Usuários", ex);
-        //        return StatusCode(StatusCodes.Status500InternalServerError, new ErrorsDto() { 
-        //            Status = StatusCodes.Status500InternalServerError,
-        //            Error = "Ocorreu Error ao Obter Usuário Tente novamente !"
-                
-        //        });
-        //    }
-        //}
+        [HttpGet]
+        public IActionResult GetUser()
+        {
+            try
+            {
+                var userMockado = new User() 
+                {
+                    Id = 1,
+                    Nome = "user Teste",
+                    Email = "teste@admin",
+                    Senha = "gms120605"
+                };
+                return Ok(userMockado);
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError("Falha ao Obter Usuários", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorsDto()
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Error = "Ocorreu Error ao Obter Usuário Tente novamente !"
+
+                });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Teste()
+        { 
+            return Ok();
+        }
 
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult AddUser([FromBody] User user)
         {
             try
