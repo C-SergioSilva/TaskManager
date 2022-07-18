@@ -46,14 +46,8 @@ namespace TaskManagerAPI.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Teste()
-        { 
-            return Ok();
-        }
-
-
-        [HttpPost] 
+        [HttpPost]
+        [AllowAnonymous]
         public IActionResult AddUser([FromBody] User user)
         {
             try
