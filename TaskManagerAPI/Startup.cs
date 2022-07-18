@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManagerAPI.Infra;
+using TaskManagerAPI.Infra.Interfaces;
+using TaskManagerAPI.Infra.Repository;
 
 namespace TaskManagerAPI
 {
@@ -29,6 +33,10 @@ namespace TaskManagerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Adicionar o contexto de conexão do banco
+
+            services.AddDbContext<ContextDB>(op => op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
            // Habilitando o recurso de api através de Controller  
             services.AddControllers();
             // adiciona o gerador do swagger através dos controller cria a documentação do swagger tendo a versão , titulo...
@@ -60,6 +68,8 @@ namespace TaskManagerAPI
 
             // libera ou restringi o acesso de dominios a API
             services.AddCors();
+            // adicionando ao escopo a interce e quem sera sua implementação
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
